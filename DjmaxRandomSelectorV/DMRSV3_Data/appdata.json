@@ -142,7 +142,7 @@
         {
             "name": "CLEAR PASS",
             "id": "CP",
-            "steamId": "3319810",
+            "steamId": "3773080",
             "type": 0
         },
         {
@@ -222,6 +222,12 @@
             "id": "FAL",
             "steamId": "2829200",
             "type": 2
+        },
+        {
+            "name": "ARCAEA",
+            "id": "ARC",
+            "steamId": "3966190",
+            "type": 1
         },
         {
             "name": "TEKKEN",
