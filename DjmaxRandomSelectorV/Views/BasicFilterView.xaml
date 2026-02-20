@@ -1,0 +1,732 @@
+﻿<UserControl x:Class="DjmaxRandomSelectorV.Views.BasicFilterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DjmaxRandomSelectorV.Views"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="340" d:DesignWidth="680">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource DarkTranslucentBackgroundColor}"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource DefaultGrayColor}"/>
+                <Setter Property="FontFamily" Value="{StaticResource LatoFont}"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0 0 0 2.5"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    Background="{StaticResource DarkTranslucentBackgroundColor}">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource HoverEffectTransparentButton}">
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Padding" Value="10 0"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="TOOL"
+                       FontSize="16"
+                       VerticalAlignment="Center"
+                       Margin="10 0"/>
+            <Button x:Name="SavePreset" Content="Save Preset"/>
+            <Button x:Name="LoadPreset" Content="Load Preset"/>
+            <Button x:Name="OpenFavoriteEditor" Content="Edit Favorite"/>
+        </StackPanel>
+
+        <Border Margin="0 2.5 2.5 2.5"
+                Grid.Row="1">
+            <Grid Margin="5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="BUTTON TUNES"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="4"
+                           Margin="0 0 0 12"/>
+                <ItemsControl x:Name="ButtonTunesUpdaters"
+                              Grid.Row="1" Grid.Column="1"
+                              Grid.ColumnSpan="4">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton x:Name="BtButton"
+                                          IsChecked="{Binding Path=IsValueContained, Mode=TwoWay}"
+                                          Style="{StaticResource ButtonTunesButton}"/>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Name}" Value="4B">
+                                    <Setter TargetName="BtButton" Property="Tag">
+                                        <Setter.Value>
+                                            <x:Array Type="ImageSource">
+                                                <BitmapImage UriSource="pack://application:,,,/Images/4B_OFF.png"/>
+                                                <BitmapImage UriSource="pack://application:,,,/Images/4B_ON.png"/>
+                                            </x:Array>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="5B">
+                                    <Setter TargetName="BtButton" Property="Tag">
+                                        <Setter.Value>
+                                            <x:Array Type="ImageSource">
+                                                <BitmapImage UriSource="pack://application:,,,/Images/5B_OFF.png"/>
+                                                <BitmapImage UriSource="pack://application:,,,/Images/5B_ON.png"/>
+                                            </x:Array>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="6B">
+                                    <Setter TargetName="BtButton" Property="Tag">
+                                        <Setter.Value>
+                                            <x:Array Type="ImageSource">
+                                                <BitmapImage UriSource="pack://application:,,,/Images/6B_OFF.png"/>
+                                                <BitmapImage UriSource="pack://application:,,,/Images/6B_ON.png"/>
+                                            </x:Array>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="8B">
+                                    <Setter TargetName="BtButton" Property="Tag">
+                                        <Setter.Value>
+                                            <x:Array Type="ImageSource">
+                                                <BitmapImage UriSource="pack://application:,,,/Images/8B_OFF.png"/>
+                                                <BitmapImage UriSource="pack://application:,,,/Images/8B_ON.png"/>
+                                            </x:Array>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="4"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="1"
+                Margin="2.5 2.5 0 2.5">
+            <Grid Margin="5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="DIFFICULTY"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="4"/>
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Grid.ColumnSpan="4"
+                            Orientation="Horizontal"
+                            Margin="0 0 0 2.5">
+                    <ItemsControl x:Name="LevelIndicators">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image x:Name="DiffImg"
+                                       IsEnabled="{Binding Value}"/>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Number}" Value="1">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorYellow}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="2">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorYellow}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="3">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorYellow}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="4">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorYellow}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="5">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorYellow}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="6">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorOrange}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="7">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorOrange}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="8">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorOrange}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="9">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorOrange}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="10">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorOrange}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="11">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="12">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="13">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="14">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="15">
+                                        <Setter TargetName="DiffImg"
+                                                Property="Style" Value="{StaticResource LevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ToggleButton x:Name="IsDifficultyContained"
+                                  Width="50"
+                                  Height="18"
+                                  Margin="16 0"
+                                  Style="{StaticResource DifficultyButton}"
+                                  Background="{StaticResource Normal}">
+                    </ToggleButton>
+                </StackPanel>
+                <Grid Grid.Row="2"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2"
+                      Margin="0 0 5 0"
+                      Background="{StaticResource SettingBarColor}"
+                      Height="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="MIN"
+                               FontSize="13"
+                               Margin="10 0 0 0"
+                               VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="DecreaseLevelMin"
+                                Style="{StaticResource LevelButton}">
+                            <Image Source="pack://application:,,,/Images/btn_left.png"
+                                   Width="8"/>
+                        </Button>
+                        <TextBlock x:Name="LevelMin"
+                                   Grid.Column="1"
+                                   FontFamily="{StaticResource LatoBlackFont}"
+                                   FontSize="13"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <Button x:Name="IncreaseLevelMin"
+                                Style="{StaticResource LevelButton}"
+                                Grid.Column="2">
+                            <Image Source="pack://application:,,,/Images/btn_right.png"
+                                   Width="8"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2"
+                      Grid.Column="3"
+                      Grid.ColumnSpan="2"
+                      Margin="5 0 0 0"
+                      Background="{StaticResource SettingBarColor}"
+                      Height="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="MAX"
+                               FontSize="13"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="DecreaseLevelMax"
+                                Style="{StaticResource LevelButton}">
+                            <Image Source="pack://application:,,,/Images/btn_left.png"
+                                   Width="8"/>
+                        </Button>
+                        <TextBlock x:Name="LevelMax"
+                                   Grid.Column="1"
+                                   FontFamily="{StaticResource LatoBlackFont}"
+                                   FontSize="13"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <Button x:Name="IncreaseLevelMax"
+                                Style="{StaticResource LevelButton}"
+                                Grid.Column="2">
+                            <Image Source="pack://application:,,,/Images/btn_right.png"
+                                   Width="8"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+                <StackPanel Grid.Row="3"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="4"
+                            Orientation="Horizontal"
+                            Margin="0 5 0 2.5">
+                    <ItemsControl x:Name="ScLevelIndicators"
+                                  Background="Transparent" BorderThickness="0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image x:Name="ScDiffImg"
+                                       IsEnabled="{Binding Value}"/>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Number}" Value="1">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="2">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="3">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="4">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="5">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorRed}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="6">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorPurple}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="7">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorPurple}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="8">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorPurple}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="9">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorPurple}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="10">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorPurple}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="11">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorBlue}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="12">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorBlue}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="13">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorBlue}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="14">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorBlue}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Number}" Value="15">
+                                        <Setter TargetName="ScDiffImg"
+                                                Property="Style" Value="{StaticResource ScLevelIndicatorBlue}"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ToggleButton x:Name="IsScContained"
+                                  Width="50"
+                                  Height="18"
+                                  Margin="16 0"
+                                  Style="{StaticResource DifficultyButton}"
+                                  Background="{StaticResource SC}">
+                    </ToggleButton>
+                </StackPanel>
+                <Grid Grid.Row="4"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2"
+                      Margin="0 0 5 0"
+                      Background="{StaticResource SettingBarColor}"
+                      Height="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="MIN"
+                               FontSize="13"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="DecreaseScLevelMin"
+                                Style="{StaticResource LevelButton}">
+                            <Image Source="pack://application:,,,/Images/btn_left.png"
+                                   Width="8"/>
+                        </Button>
+                        <TextBlock x:Name="ScLevelMin"
+                                   Grid.Column="1"
+                                   FontFamily="{StaticResource LatoBlackFont}"
+                                   FontSize="13"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <Button x:Name="IncreaseScLevelMin"
+                                Style="{StaticResource LevelButton}"
+                                Grid.Column="2">
+                            <Image Source="pack://application:,,,/Images/btn_right.png"
+                                   Width="8"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="4"
+                      Grid.Column="3"
+                      Grid.ColumnSpan="2"
+                      Margin="5 0 0 0"
+                      Background="{StaticResource SettingBarColor}"
+                      Height="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="MAX"
+                               FontSize="13"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="DecreaseScLevelMax"
+                                Style="{StaticResource LevelButton}">
+                            <Image Source="pack://application:,,,/Images/btn_left.png"
+                                   Width="8"/>
+                        </Button>
+                        <TextBlock x:Name="ScLevelMax"
+                                   Grid.Column="1"
+                                   FontFamily="{StaticResource LatoBlackFont}"
+                                   FontSize="13"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <Button x:Name="IncreaseScLevelMax"
+                                Style="{StaticResource LevelButton}"
+                                Grid.Column="2">
+                            <Image Source="pack://application:,,,/Images/btn_right.png"
+                                   Width="8"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Margin="0 2.5 0 0">
+            <Grid Margin="5,0,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            Margin="0 0 0 5">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource SettingWindowButton}">
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Border.CornerRadius" Value="3"/>
+                            <Setter Property="FontSize" Value="9"/>
+                            <Setter Property="Margin" Value="10 0 0 0"/>
+                            <Setter Property="Height" Value="16"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Text="CATEGORY"/>
+                    <Button x:Name="SelectAllCategories"
+                            Content="SELECT ALL"/>
+                    <Button x:Name="DeselectAllCategories"
+                            Content="DESELECT ALL"/>
+                    <ToggleButton x:Name="IsFavoriteContained"
+                                  Content="FAVORITE ★"
+                                  Style="{StaticResource CategoryButton}"
+                                  Foreground="{StaticResource FgFavorite}"
+                                  Background="{StaticResource BgFavorite}"
+                                  Padding="8 0"
+                                  FontSize="12"
+                                  Height="16"
+                                  Margin="10 0 0 0"/>
+                </StackPanel>
+                <ItemsControl x:Name="RegularCategories"
+                              Grid.Row="1" Grid.Column="1">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton x:Name="Button"
+                                          Content="{Binding Name}"
+                                          IsChecked="{Binding Path=IsValueContained, Mode=TwoWay}"
+                                          Style="{StaticResource CategoryButton}">
+                            </ToggleButton>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Name}" Value="RESPECT">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgRespect}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgRespect}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="RESPECT/V">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgRespectV}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgRespectV}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="PORTABLE 1">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgPortable1}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgPortable1}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="PORTABLE 2">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgPortable2}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgPortable2}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="PORTABLE 3">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgPortable3}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgPortable3}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TRILOGY">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTrilogy}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgTrilogy}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="CLAZZIQUAI">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgClazziquai}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgClazziquai}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="BLACK SQUARE">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgBlackSquare}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgBlackSquare}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V EXTENSION">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVExtension}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVExtension}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V EXTENSION 2">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVExtension2}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVExtension2}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V EXTENSION 3">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVExtension3}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVExtension3}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V EXTENSION 4">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVExtension4}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVExtension4}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V EXTENSION 5">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVExtension5}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVExtension5}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V LIBERTY">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVLiberty}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVLiberty}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V LIBERTY 2">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVLiberty2}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVLiberty2}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V LIBERTY 3">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVLiberty3}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVLiberty3}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="V LIBERTY 4">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgVLiberty4}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgVLiberty4}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="EMOTIONAL S.">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgEmotionalS}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgEmotionalS}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TECHNIKA 1">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTechnika1}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgTechnika1}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TECHNIKA 2">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTechnika2}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgTechnika2}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TECHNIKA 3">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTechnika3}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgTechnika3}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TECHNIKA T&amp;Q">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTechnikaTQ2}"/>
+                                    <Setter TargetName="Button" Property="BorderBrush" Value="{StaticResource BgTechnikaTQ1}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgTechnikaTQ}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="CLEAR PASS">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgPremiumTrack}"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource FgPremiumTrack}"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="6"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <ItemsControl x:Name="CollabCategories"
+                              Grid.Row="2" Grid.Column="1"
+                              Background="{StaticResource DarkerTranslucentBackgroundColor}"
+                              Margin="0 5 0 0"
+                              Padding="0 4">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton x:Name="Button"
+                                          Content="{Binding Name}"
+                                          IsChecked="{Binding Path=IsValueContained, Mode=TwoWay}"
+                                          Style="{StaticResource CollaborationButton}"
+                                          Margin="4 0">
+                            </ToggleButton>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Name}" Value="COLLAB/PLI">
+                                    <Setter TargetName="Button" Property="Style" Value="{StaticResource CategoryButton}"/>
+                                    <Setter TargetName="Button" Property="IsEnabled" Value="False"/>
+                                    <Setter TargetName="Button" Property="Foreground" Value="{StaticResource DefaultGrayColor}"/>
+                                    <Setter TargetName="Button" Property="Height" Value="26"/>
+                                    <Setter TargetName="Button" Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <TextBlock Text="{Binding Name}"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Padding="0 3 0 0"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="GUILTY GEAR">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgGuiltyGear}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="BLUE ARCHIVE">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgBlueArchive}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="CHUNITHM">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgChunithm}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="CYTUS">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgCytus}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="DEEMO">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgDeemo}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="ESTIMATE">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgEstimate}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="EZ2ON">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgEz2on}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="GROOVE COASTER">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgGrooveCoaster}"/>
+                                    <Setter TargetName="Button" Property="FontSize" Value="10"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="GIRLS' FRONTLINE">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgGirlsFrontline}"/>
+                                    <Setter TargetName="Button" Property="FontSize" Value="10"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="MUSE DASH">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgMuseDash}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="NEXON">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgNexon}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="MAPLESTORY">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgMapleStory}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="FALCOM">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgFalcom}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TEKKEN">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTekken}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TRIBUTE #1">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTribute1}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="64514 Part.1">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource Bg645141}"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="6"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
