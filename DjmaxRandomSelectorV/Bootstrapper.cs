@@ -103,6 +103,7 @@ namespace DjmaxRandomSelectorV
             // Set AllTrack
             _db.Initialize(appdata);
             _db.ImportDB();
+            _db.MergeEnglishTitles(appdata.EnglishTitles);
             _db.SetPlayable(_config.OwnedDlcs);
             // Bind views and viewmodels
             await DisplayRootViewForAsync(typeof(ShellViewModel));

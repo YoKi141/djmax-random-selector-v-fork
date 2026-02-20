@@ -41,13 +41,18 @@ namespace Dmrsv.RandomSelector
 
         public void MakeLocations(IEnumerable<Track> trackList)
         {
+            // In non-Korean mode use the English title when available so that
+            // grouping and sorting match what the game actually displays.
+            var getEffectiveTitle = (Track t) =>
+                GameLanguage == GameLanguage.Korean ? t.Title : (t.TitleEn ?? t.Title);
+
             var getGroup = (Track t) =>
             {
-                char initial = char.ToLower(t.Title[0]);
+                char initial = char.ToLower(getEffectiveTitle(t)[0]);
                 return Regex.IsMatch(initial.ToString(), "[a-z]", RegexOptions.IgnoreCase) ? initial : '#';
             };
             var groupByInitial = trackList.Where(t => t.IsPlayable)
-                                          .OrderBy(t => t.Title, new TitleComparer(GameLanguage))
+                                          .OrderBy(t => getEffectiveTitle(t), new TitleComparer(GameLanguage))
                                           .ThenByDescending(t => t.Id == 170 || t.Id == 267 ? t.Id : 0)
                                           .GroupBy(t => getGroup(t))
                                           .ToDictionary(g => g.Key, g => g.ToList());

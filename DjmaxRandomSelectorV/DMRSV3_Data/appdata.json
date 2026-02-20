@@ -255,13 +255,19 @@
                 {
                     "name": "TRIBUTE #1",
                     "items": [
-                        [ 675, 684 ]
+                        [
+                            675,
+                            684
+                        ]
                     ]
                 },
                 {
                     "name": "64514 Part.1",
                     "items": [
-                        [ 723, 732 ]
+                        [
+                            723,
+                            732
+                        ]
                     ]
                 }
             ]
@@ -271,41 +277,118 @@
         {
             "id": 373,
             "requiredDlc": [
-                [ "BS", "CE" ],
-                [ "BS", "T1" ]
+                [
+                    "BS",
+                    "CE"
+                ],
+                [
+                    "BS",
+                    "T1"
+                ]
             ]
         },
         {
             "id": 374,
             "requiredDlc": [
-                [ "T1", "CE" ],
-                [ "T1", "BS" ]
+                [
+                    "T1",
+                    "CE"
+                ],
+                [
+                    "T1",
+                    "BS"
+                ]
             ]
         },
         {
             "id": 375,
             "requiredDlc": [
-                [ "CE", "BS" ],
-                [ "CE", "T1" ]
+                [
+                    "CE",
+                    "BS"
+                ],
+                [
+                    "CE",
+                    "T1"
+                ]
             ]
         },
         {
             "id": 462,
             "requiredDlc": [
-                [ "VE", "VE2" ]
+                [
+                    "VE",
+                    "VE2"
+                ]
             ]
         },
         {
             "id": 548,
             "requiredDlc": [
-                [ "VE3", "VE4" ]
+                [
+                    "VE3",
+                    "VE4"
+                ]
             ]
         },
         {
             "id": 674,
             "requiredDlc": [
-                [ "VL", "VL2" ]
+                [
+                    "VL",
+                    "VL2"
+                ]
             ]
         }
-    ]
+    ],
+    "englishTitles": {
+        "0": "Stay With Me",
+        "48": "Seollaim",
+        "49": "Taekwonburi",
+        "101": "Ask the Wind",
+        "102": "Ask the Wind ~Live Mix~",
+        "103": "Morning Person",
+        "104": "Piano Concerto No.1",
+        "146": "Revenge and War",
+        "202": "Memories of the Wind",
+        "226": "Confession, Flower, Wolf part.2",
+        "246": "Confession, Flower, Wolf",
+        "247": "Come to Me",
+        "248": "To You",
+        "249": "Eternity",
+        "274": "Comet",
+        "298": "Seollaim Part.2",
+        "299": "Ghost",
+        "385": "Yeomra",
+        "412": "Hold Me",
+        "417": "Seoul Girl",
+        "419": "Bloom Into You",
+        "420": "Siege Battle ~Pierre Blanche, Yonce Remix~",
+        "421": "Ru of Light : Ru Labada",
+        "422": "Fortress of Buyeo ~Blosso Remix~",
+        "423": "Boy Adventurer ~SiNA Remix~",
+        "424": "An Old Legend Told by Grandmother",
+        "425": "Allied Forces and Imperial Forces",
+        "426": "Where the Legend Began ~VoidRover Remix~",
+        "427": "God of Death : Crom Cruach",
+        "428": "The Final Dance",
+        "429": "KartRider Mashup ~Cosmograph Remix~",
+        "430": "KartRider Mashup ~Pure 100% Remix~",
+        "431": "KartRider, CrazyArcade, BubbleFighter Main theme ~CHUCK Remix~",
+        "442": "Memory of Dream (feat. Jisun)",
+        "462": "Bloom Into You ~Original Ver.~",
+        "464": "When I'm With You",
+        "484": "Starlight Garden",
+        "504": "Mozart Symphony No.40 1st Movement",
+        "505": "Bambi - DJMAX Edit -",
+        "527": "Feel",
+        "547": "I Want to Go to You",
+        "548": "Yeomra ~Original Ver.~",
+        "587": "Beyond the Starlight",
+        "620": "Trap",
+        "621": "Follow Me",
+        "622": "Sometimes, Composure Is Needed",
+        "623": "Growing Pains [ScreaM Records]",
+        "624": "Parallel Confession ~Pan Remix~"
+    }
 }

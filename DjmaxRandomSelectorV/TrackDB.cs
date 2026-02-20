@@ -81,6 +81,18 @@ namespace DjmaxRandomSelectorV
             }).AsReadOnly();
         }
 
+        public void MergeEnglishTitles(Dictionary<int, string> englishTitles)
+        {
+            if (englishTitles == null || englishTitles.Count == 0)
+                return;
+            AllTrack = AllTrack
+                .Select(track => englishTitles.TryGetValue(track.Id, out string titleEn)
+                    ? track with { TitleEn = titleEn }
+                    : track)
+                .ToList()
+                .AsReadOnly();
+        }
+
         public void SetPlayable(IEnumerable<string> ownedDlcs)
         {
             var categories = ownedDlcs.Concat(_basicCategories);

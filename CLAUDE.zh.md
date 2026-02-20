@@ -20,7 +20,7 @@ DjmaxRandomSelectorV.sln
 
 | 文件 | 作用 |
 |---|---|
-| `Track.cs` | 不可变记录：曲目元数据 + 谱面数组 + IsPlayable |
+| `Track.cs` | 不可变记录：曲目元数据 + 谱面数组 + IsPlayable + TitleEn（可空英文标题） |
 | `Pattern.cs` | 不可变记录：MusicInfo + 按键数 + 难度 + 等级 |
 | `MusicInfo.cs` | 共享元数据（Id、Title、Composer、Category） |
 | `BasicFilter.cs` | 基于查询的过滤（按键、难度、分类、等级范围） |
@@ -97,94 +97,111 @@ Alt + 热键重复**上一次**选曲，无需重新随机。
 
 ## 多语言兼容性修复
 
-### 问题根源
+### 真正的问题根源
 
-原始代码完全按照游戏**韩语模式**的排列逻辑硬编码：
+原始代码存在**两层**语言兼容性问题，均与 `Locator`（游戏内自动导航）相关：
 
-- 在韩语模式下，韩文标题曲目被归入 `#` 分组，且该分组位于列表**最前面**（A–Z 之前）。
-- `TitleComparer.GetPriority` 将非字母起始字符（韩文）赋予优先级 `1`（最先），字母赋予 `4`。
-- `Locator.MakeLocations` 预先计算每首曲目在游戏列表中的位置，假设 `#` 分组在列表开头。
-- `Locator.Locate` 在重置光标（Shift+Shift → 列表最前）后直接按字母键导航，依赖 `#` 在开头的假设。
+#### 问题一：标题替换
 
-在**英语等非韩语模式**下：
+687首曲目中有 54 首含韩文。在韩语模式下，这些曲目以韩文标题显示（如 `비상 ~Stay With Me~`）。切换到**英语模式**后，游戏会将它们替换为英文翻译标题（如 `Stay With Me`）。
 
-- `#` 分组（韩文标题曲目）移至列表**末尾**（A–Z 之后）。
-- 重置后光标停在第一个字母分组（如 `a`），而非 `#`。
-- 所有预计算的位置索引全部错误，导航完全失效。
+`Locator.MakeLocations` 依赖标题首字母计算每首曲目在游戏列表中的位置。若仍用韩文标题（`비` → `#` 分组），但游戏实际显示英文标题（`S` → `s` 分组），位置计算完全错误，导航直接失败。
+
+#### 问题二：排列顺序
+
+- **韩语模式**：非字母起始曲目（韩文）归入 `#` 分组，位于列表**最前**（A–Z 之前）。重置光标（Shift+Shift）后停在列表首部（即 `#` 分组开头）。
+- **英语模式**：翻译后的曲目插入对应字母分组，`#` 分组（仅剩真正无法翻译的条目）移至列表**末尾**（A–Z 之后）。重置后光标停在字母分组开头（如 `a`），而非 `#`。
+
+`Dmrsv3AppData.cs` 中已有 `// TODO: title converter for multi-language support` 注释，说明原开发者早已预判此问题。
+
+---
 
 ### 修复方案
 
-增加 `GameLanguage` 枚举设置（`Korean` / `English`），通过以下两处核心改动适配不同语言：
+分两层修复，完全无需维护代码之外的任何手动配置：
 
-#### 1. `TitleComparer`：调整排序优先级
+#### 第一层：英文标题数据（`appdata.json`）
 
-```csharp
-// 修复前（硬编码韩语顺序）
-if (char.IsLetter(ch))
-    return idx == 0 ? 1 : 5;   // 韩文在最前
+在 `appdata.json`（从 GitHub 自动下载的数据文件）中新增 `englishTitles` 字典，存储 48 首韩文首字曲目的英文标题：
 
-// 修复后（语言感知）
-if (char.IsLetter(ch))
-{
-    if (idx == 0)
-        return _gameLanguage == GameLanguage.Korean ? 1 : 5;
-    return 5;
+```json
+"englishTitles": {
+    "0":   "Stay With Me",
+    "48":  "Seollaim",
+    "101": "Ask the Wind",
+    "246": "Confession, Flower, Wolf",
+    ...
 }
-// 英语模式：韩文优先级 5 > 字母优先级 4 → 韩文排在 A-Z 之后
 ```
 
-#### 2. `Locator.MakeLocations`：`#` 分组索引策略
+- 新增 DLC 时只需更新 `appdata.json`，代码无需改动。
+- 已经以字母起始的混合标题（如 `Eternal Memory ~소녀의 꿈~`、`I want You ~반짝 반짝 Sunshine~`）无需映射，本已正确处理。
 
-在英语模式下，强制 `#` 分组的所有曲目使用**负索引**（从 `a` 位置向上回绕到列表尾部导航）：
+代码链路：
+
+```
+appdata.json
+  └─► Dmrsv3AppData.EnglishTitles (Dictionary<int, string>)
+        └─► TrackDB.MergeEnglishTitles()   ← 启动时调用（Bootstrapper.cs）
+              └─► Track.TitleEn (string?)  ← 合并到 Track 记录
+
+Locator.MakeLocations():
+  getEffectiveTitle(t) = GameLanguage == Korean ? t.Title : (t.TitleEn ?? t.Title)
+  → 用有效标题计算分组和位置
+```
+
+#### 第二层：排序与导航调整（回退兜底）
+
+对于 `englishTitles` 中未覆盖的曲目，仍需处理排列顺序差异：
+
+**`TitleComparer`**（`GameLanguage` 参数控制）：
 
 ```csharp
-// 修复前
-return index <= (count - 1) / 2 || "wxyzWXYZ".Contains(initial)
-    ? index : index - count;
+// 英语模式：非字母起始字符排在 A-Z 之后（优先级 5 > 字母优先级 4）
+if (idx == 0)
+    return _gameLanguage == GameLanguage.Korean ? 1 : 5;
+```
 
-// 修复后
+**`Locator.MakeLocations`**（英语模式 `#` 分组强制负索引）：
+
+```csharp
+// 英语模式下 '#' 在列表末尾，始终用 "按 'a' 键后向上回绕" 路径导航
 if (GameLanguage != GameLanguage.Korean && initial == '#')
-    return index - count;   // 英语模式强制负索引
-return index <= (count - 1) / 2 || "wxyzWXYZ".Contains(initial)
-    ? index : index - count;
+    return index - count;
 ```
 
-**为什么负索引有效？**
+---
 
-`Locate()` 处理负索引时，将跳转目标改为下一字母组起点，再向上（Up 键）导航。对于 `#` 分组：
-
-```
-loc.Index < 0 且 group == '#'
-  → group 改为 'a'
-  → 按 'a' 键跳至 'a' 分组开头
-  → 向上导航 |index| 步
-  → 列表从 'a' 开头向上回绕 → 到达列表尾部（英语模式下即 '#' 分组末尾）✓
-```
-
-韩语模式的 `#` 正索引路径（重置后直接向下导航）完全不受影响。
-
-### 涉及文件（共 9 个）
+### 涉及文件（共 13 个）
 
 | 文件 | 变更内容 |
 |---|---|
-| `Dmrsv.RandomSelector/Enums/GameLanguage.cs` | **新增** `GameLanguage` 枚举 |
-| `Dmrsv.RandomSelector/TitleComparer.cs` | 接受 `GameLanguage` 参数，英语模式调整非字母字符排序优先级 |
-| `Dmrsv.RandomSelector/Locator.cs` | 新增 `GameLanguage` 属性；`MakeLocations` 传入语言参数并修正 `#` 分组索引 |
+| `Dmrsv.RandomSelector/Enums/GameLanguage.cs` | **新增** `GameLanguage` 枚举（Korean / English） |
+| `Dmrsv.RandomSelector/Track.cs` | 新增 `TitleEn` 可空属性 |
+| `Dmrsv.RandomSelector/TitleComparer.cs` | 接受 `GameLanguage`；英语模式调整非字母字符排序优先级 |
+| `Dmrsv.RandomSelector/Locator.cs` | `GameLanguage` 属性；`getEffectiveTitle` 委托；`#` 分组强制负索引 |
+| `DjmaxRandomSelectorV/Dmrsv3AppData.cs` | 新增 `EnglishTitles` 字典，移除 TODO 注释 |
+| `DjmaxRandomSelectorV/TrackDB.cs` | 新增 `MergeEnglishTitles()` 方法 |
+| `DjmaxRandomSelectorV/Bootstrapper.cs` | 启动时调用 `MergeEnglishTitles` |
 | `DjmaxRandomSelectorV/Dmrsv3Configuration.cs` | 持久化 `GameLanguage`（默认 Korean） |
-| `DjmaxRandomSelectorV/Messages/SettingMessage.cs` | 新增 `GameLanguage` 字段，Apply 时重建导航位置 |
-| `DjmaxRandomSelectorV/RandomSelector.cs` | 初始化时及设置变更时同步 `_locator.GameLanguage` |
-| `DjmaxRandomSelectorV/ViewModels/SettingViewModel.cs` | 新增 `IsEnglishLanguage` 属性，绑定配置读写 |
-| `DjmaxRandomSelectorV/Views/SettingView.xaml` | 在设置面板新增 **"GAME LANGUAGE (ENGLISH)"** 开关 |
-| `README.md` | 移除强制韩语要求，说明新开关用法 |
+| `DjmaxRandomSelectorV/Messages/SettingMessage.cs` | 携带 `GameLanguage`，Apply 时重建导航位置 |
+| `DjmaxRandomSelectorV/RandomSelector.cs` | 初始化及设置变更时同步 `_locator.GameLanguage` |
+| `DjmaxRandomSelectorV/ViewModels/SettingViewModel.cs` | `IsEnglishLanguage` 属性，绑定配置读写 |
+| `DjmaxRandomSelectorV/Views/SettingView.xaml` | 设置面板新增 **"GAME LANGUAGE (ENGLISH)"** 开关 |
+| `DjmaxRandomSelectorV/DMRSV3_Data/appdata.json` | 新增 `englishTitles`，包含 48 首曲目的英文标题 |
 
 ### 用户操作
 
 在设置（Settings）面板中找到 **GAME LANGUAGE (ENGLISH)** 开关：
 
-- **关闭**（默认）→ 韩语模式，`#` 分组在列表最前。
-- **开启** → 英语模式，`#` 分组在列表末尾（A–Z 之后）。
+- **关闭**（默认）→ 韩语模式。
+- **开启** → 英语模式：启用英文标题导航 + 调整排列顺序。
 
-将此开关与游戏内的实际语言设置保持一致即可，无需手动输入任何语言相关配置。
+与游戏内语言设置保持一致即可，无需任何手动配置。
+
+### 维护说明（新 DLC）
+
+当新 DLC 包含韩文首字标题的曲目时：在 `appdata.json` 的 `englishTitles` 字典中添加对应条目（`"trackId": "English Title"`）即可，代码无需改动。
 
 ---
 
