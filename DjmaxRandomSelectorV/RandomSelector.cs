@@ -45,6 +45,7 @@ namespace DjmaxRandomSelectorV
             _history = new History<int>(config.RecentPlayed, config.RecentsCount);
             _selector = new SelectorWithHistory(_history);
             _locator = new Locator();
+            _locator.GameLanguage = config.GameLanguage;
             _locator.MakeLocations(_db.AllTrack);
             SetLocatorProperties(new FilterOptionMessage(
                 config.RecentsCount,
@@ -130,6 +131,7 @@ namespace DjmaxRandomSelectorV
         public Task HandleAsync(SettingMessage message, CancellationToken cancellationToken)
         {
             _locator.InputInterval = message.InputInterval;
+            _locator.GameLanguage = message.GameLanguage;
             _db.SetPlayable(message.OwnedDlcs);
             _locator.MakeLocations(_db.AllTrack);
             UpdateCandidates();

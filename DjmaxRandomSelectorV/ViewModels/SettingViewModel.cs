@@ -45,6 +45,54 @@ namespace DjmaxRandomSelectorV.ViewModels
                 NotifyOfPropertyChange();
             }
         }
+        public bool IsKoreanLanguage
+        {
+            get => _message.GameLanguage == GameLanguage.Korean;
+            set
+            {
+                if (value) _message.GameLanguage = GameLanguage.Korean;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsEnglishLanguage));
+                NotifyOfPropertyChange(nameof(IsJapaneseLanguage));
+                NotifyOfPropertyChange(nameof(IsChineseLanguage));
+            }
+        }
+        public bool IsEnglishLanguage
+        {
+            get => _message.GameLanguage == GameLanguage.English;
+            set
+            {
+                if (value) _message.GameLanguage = GameLanguage.English;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsKoreanLanguage));
+                NotifyOfPropertyChange(nameof(IsJapaneseLanguage));
+                NotifyOfPropertyChange(nameof(IsChineseLanguage));
+            }
+        }
+        public bool IsJapaneseLanguage
+        {
+            get => _message.GameLanguage == GameLanguage.Japanese;
+            set
+            {
+                if (value) _message.GameLanguage = GameLanguage.Japanese;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsKoreanLanguage));
+                NotifyOfPropertyChange(nameof(IsEnglishLanguage));
+                NotifyOfPropertyChange(nameof(IsChineseLanguage));
+            }
+        }
+        public bool IsChineseLanguage
+        {
+            get => _message.GameLanguage == GameLanguage.Chinese;
+            set
+            {
+                if (value) _message.GameLanguage = GameLanguage.Chinese;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsKoreanLanguage));
+                NotifyOfPropertyChange(nameof(IsEnglishLanguage));
+                NotifyOfPropertyChange(nameof(IsJapaneseLanguage));
+            }
+        }
         public BindableCollection<ListUpdater> CategoryUpdaters { get; }
 
         public SettingViewModel(IEventAggregator eventAggregator, IFileManager fileManager)
@@ -58,7 +106,8 @@ namespace DjmaxRandomSelectorV.ViewModels
                 FilterType = config.FilterType,
                 InputInterval = config.InputDelay,
                 SavesExclusion = config.SavesRecents,
-                OwnedDlcs = config.OwnedDlcs.ConvertAll(x => x)
+                OwnedDlcs = config.OwnedDlcs.ConvertAll(x => x),
+                GameLanguage = config.GameLanguage
             };
 
             _categories = IoC.Get<CategoryContainer>().GetCategories();
@@ -100,6 +149,7 @@ namespace DjmaxRandomSelectorV.ViewModels
             config.InputDelay = _message.InputInterval;
             config.SavesRecents = _message.SavesExclusion;
             config.OwnedDlcs = _message.OwnedDlcs.ConvertAll(x => x);
+            config.GameLanguage = _message.GameLanguage;
 
             _fileManager.Export(config, ConfigPath);
             _eventAggregator.PublishOnUIThreadAsync(_message);

@@ -1,4 +1,5 @@
 ﻿using DjmaxRandomSelectorV.Models;
+using System.Collections.Generic;
 
 namespace DjmaxRandomSelectorV
 {
@@ -9,6 +10,15 @@ namespace DjmaxRandomSelectorV
         public Category[] Categories { get; set; }
         public PliCategory[] PliCategories { get; set; }
         public LinkDiscItem[] LinkDisc { get; set; }
-        // TODO: title converter for multi-language support
+        /// <summary>
+        /// Maps track ID → English title for tracks whose original title is
+        /// Korean. Used by Locator when GameLanguage is English.
+        /// </summary>
+        public Dictionary<int, string> EnglishTitles { get; set; } = new();
+        /// <summary>
+        /// Maps track ID → Japanese title for tracks whose original title is
+        /// Korean. Used by Locator when GameLanguage is Japanese.
+        /// </summary>
+        public Dictionary<int, string> JapaneseTitles { get; set; } = new();
     }
 }

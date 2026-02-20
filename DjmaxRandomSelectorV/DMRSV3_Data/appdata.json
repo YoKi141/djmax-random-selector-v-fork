@@ -246,6 +246,12 @@
             "id": "PLI1",
             "steamId": null,
             "type": 3
+        },
+        {
+            "name": "64514 Part.1",
+            "id": "PLI2",
+            "steamId": null,
+            "type": 3
         }
     ],
     "pliCategories": [
@@ -255,13 +261,24 @@
                 {
                     "name": "TRIBUTE #1",
                     "items": [
-                        [ 675, 684 ]
+                        [
+                            675,
+                            684
+                        ]
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "major": "PLI2",
+            "minors": [
                 {
                     "name": "64514 Part.1",
                     "items": [
-                        [ 723, 732 ]
+                        [
+                            723,
+                            732
+                        ]
                     ]
                 }
             ]
@@ -271,41 +288,131 @@
         {
             "id": 373,
             "requiredDlc": [
-                [ "BS", "CE" ],
-                [ "BS", "T1" ]
+                [
+                    "BS",
+                    "CE"
+                ],
+                [
+                    "BS",
+                    "T1"
+                ]
             ]
         },
         {
             "id": 374,
             "requiredDlc": [
-                [ "T1", "CE" ],
-                [ "T1", "BS" ]
+                [
+                    "T1",
+                    "CE"
+                ],
+                [
+                    "T1",
+                    "BS"
+                ]
             ]
         },
         {
             "id": 375,
             "requiredDlc": [
-                [ "CE", "BS" ],
-                [ "CE", "T1" ]
+                [
+                    "CE",
+                    "BS"
+                ],
+                [
+                    "CE",
+                    "T1"
+                ]
             ]
         },
         {
             "id": 462,
             "requiredDlc": [
-                [ "VE", "VE2" ]
+                [
+                    "VE",
+                    "VE2"
+                ]
             ]
         },
         {
             "id": 548,
             "requiredDlc": [
-                [ "VE3", "VE4" ]
+                [
+                    "VE3",
+                    "VE4"
+                ]
             ]
         },
         {
             "id": 674,
             "requiredDlc": [
-                [ "VL", "VL2" ]
+                [
+                    "VL",
+                    "VL2"
+                ]
             ]
         }
-    ]
+    ],
+    "englishTitles": {
+        "0": "Sore~Stay With Me~",
+        "48": "Heart Beat",
+        "49": "Tae Kwon Buri",
+        "101": "Ask to Wind",
+        "102": "Ask to Wind ~Live Mix~",
+        "103": "Every Morning",
+        "104": "Piano Concerto No.1",
+        "146": "REVENGE",
+        "202": "Memory of Wind",
+        "226": "Proposed, Flower, Wolf part.2",
+        "246": "Proposed, Flower, Wolf",
+        "247": "Come to Me",
+        "248": "To You",
+        "249": "Forever",
+        "274": "comet",
+        "298": "Heart Beat Part.2",
+        "299": "Ghost",
+        "385": "Karma",
+        "412": "pit-a-pet",
+        "417": "Soul Lady",
+        "419": "Flowering",
+        "420": "The Siege Warfare ~Pierre Blanche, Yonce Remix~",
+        "421": "Lugh Lamfada",
+        "422": "Buyeo Fortress ~Blosso Remix~",
+        "423": "Young Adventurer ~SiNA Remix~",
+        "424": "An old story from grandma",
+        "425": "Alliance x Empire",
+        "426": "Where Legend Begin ~VoidRover Remix~",
+        "427": "Crom Cruaich",
+        "428": "The Final Dance",
+        "429": "KartRider Mashup ~Cosmograph Remix~",
+        "430": "KartRider Mashup ~Pure 100% Remix~",
+        "431": "KartRider, CrazyArcade, BubbleFighter Main theme ~CHUCK Remix~",
+        "442": "Memories of dreams",
+        "462": "Flowering ~Original Ver.~",
+        "464": "To Be With You",
+        "484": "Starlight Garden",
+        "504": "Mozart Symphony No.40 1st Mvt.",
+        "505": "Bambi - DJMAX Edit -",
+        "527": "Feel",
+        "547": "To Where You Are",
+        "548": "Karma ~Original Ver.~",
+        "587": "Over the Starlight",
+        "620": "TRAP",
+        "621": "Follow Me",
+        "622": "Cold Generation",
+        "623": "Growing Pains [ScreaM Records]",
+        "624": "Confession in Another World ~Pan Remix~",
+        "297": "I want You ~Twinkle Twinkle Sunshine~",
+        "335": "Eternal Fantasy",
+        "449": "I’ve got a feeling",
+        "491": "Love☆Panic",
+        "516": "NB RANGERS - Destiny",
+        "594": "glory MAX -to the MAXimum-",
+        "666": "MADNESS (feat.WaMi)",
+        "694": "Operation☆DOTABATA!",
+        "702": "kohiodoshi",
+        "705": "DJ_Joseon (feat. E_Iomong, Pandalang)",
+        "706": "Fly with me (feat. Jungmihwang)"
+    },
+    "japaneseTitles": {
+    }
 }
