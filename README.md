@@ -12,5 +12,6 @@ A program for selecting music randomly in DJMAX RESPECT V. Set the filter you wa
 - Click the setting button at the bottom right.
 - In Track List Setting, Select your own DLCs and click APPLY.
 - Set the filter you would like to.
-- In Freestyle Mode of DJMAX, set following things: 'All Track' category, 'Sort by Title (A to Z)', 'Korean' language.
+- In Freestyle Mode of DJMAX, set following things: 'All Track' category, 'Sort by Title (A to Z)'.
+- If your game language is **not Korean**, enable **GAME LANGUAGE (ENGLISH)** in the selector's settings panel.
 - All done. Now press F7 and enjoy.

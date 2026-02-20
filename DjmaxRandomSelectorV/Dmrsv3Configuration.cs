@@ -8,6 +8,7 @@ namespace DjmaxRandomSelectorV
     {
         /*************** Setting *****************/
         public FilterType FilterType { get; set; } = FilterType.Query;
+        public GameLanguage GameLanguage { get; set; } = GameLanguage.Korean;
         public int InputDelay { get; set; } = 30;
         public List<int> Favorite { get; set; } = new();
         public List<int> Blacklist { get; set; } = new();

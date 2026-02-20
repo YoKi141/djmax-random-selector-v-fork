@@ -94,6 +94,14 @@
                         <TextBlock Text="SAVE RECENT MUSIC LIST"/>
                         <ToggleButton x:Name="SavesRecents"/>
                     </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="GAME LANGUAGE (ENGLISH)"/>
+                        <ToggleButton x:Name="IsEnglishLanguage"/>
+                    </Grid>
 
                     <Grid Style="{x:Null}" Margin="0 10 0 0">
                         <Grid.ColumnDefinitions>

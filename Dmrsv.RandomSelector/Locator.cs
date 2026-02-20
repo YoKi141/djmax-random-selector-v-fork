@@ -11,6 +11,7 @@ namespace Dmrsv.RandomSelector
         public bool LocatesStyle { get; set; } = true;
         public bool CanLocate { get; set; } = true;
         public bool PressesStart { get; set; } = false;
+        public GameLanguage GameLanguage { get; set; } = GameLanguage.Korean;
 
         private List<LocationInfo?> _locations;
 
@@ -46,7 +47,7 @@ namespace Dmrsv.RandomSelector
                 return Regex.IsMatch(initial.ToString(), "[a-z]", RegexOptions.IgnoreCase) ? initial : '#';
             };
             var groupByInitial = trackList.Where(t => t.IsPlayable)
-                                          .OrderBy(t => t.Title, new TitleComparer())
+                                          .OrderBy(t => t.Title, new TitleComparer(GameLanguage))
                                           .ThenByDescending(t => t.Id == 170 || t.Id == 267 ? t.Id : 0)
                                           .GroupBy(t => getGroup(t))
                                           .ToDictionary(g => g.Key, g => g.ToList());
@@ -55,6 +56,11 @@ namespace Dmrsv.RandomSelector
                 char initial = char.ToLower(getGroup(t));
                 int index = groupByInitial[initial].IndexOf(t);
                 int count = groupByInitial[initial].Count();
+                // In English mode the '#' group sits at the end of the list (after 'z').
+                // Always use a negative index so Locate() navigates backward from the 'a'
+                // start via list wrap-around, which correctly reaches the '#' tail.
+                if (GameLanguage != GameLanguage.Korean && initial == '#')
+                    return index - count;
                 return index <= (count - 1) / 2 || "wxyzWXYZ".Contains(initial) ? index : index - count;
             };
 

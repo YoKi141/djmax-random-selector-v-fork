@@ -2,6 +2,13 @@
 {
     public class TitleComparer : IComparer<string>
     {
+        private readonly GameLanguage _gameLanguage;
+
+        public TitleComparer(GameLanguage gameLanguage = GameLanguage.Korean)
+        {
+            _gameLanguage = gameLanguage;
+        }
+
         public int Compare(string? x, string? y)
         {
             if (string.Equals(x, y))
@@ -45,9 +52,13 @@
             {
                 return 4;
             }
-            if (char.IsLetter(ch)) // non-alphabetic letter
+            if (char.IsLetter(ch)) // non-alphabetic letter (e.g. Korean)
             {
-                return idx == 0 ? 1 : 5;
+                // Korean mode: non-alphabetic titles sort first (before symbols/numbers/A-Z)
+                // English mode: non-alphabetic titles sort last (after A-Z, as '#' group at end)
+                if (idx == 0)
+                    return _gameLanguage == GameLanguage.Korean ? 1 : 5;
+                return 5;
             }
             if (char.IsDigit(ch))
             {
