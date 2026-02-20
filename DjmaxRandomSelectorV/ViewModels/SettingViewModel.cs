@@ -45,13 +45,52 @@ namespace DjmaxRandomSelectorV.ViewModels
                 NotifyOfPropertyChange();
             }
         }
-        public bool IsEnglishLanguage
+        public bool IsKoreanLanguage
         {
-            get { return _message.GameLanguage == GameLanguage.English; }
+            get => _message.GameLanguage == GameLanguage.Korean;
             set
             {
-                _message.GameLanguage = value ? GameLanguage.English : GameLanguage.Korean;
+                if (value) _message.GameLanguage = GameLanguage.Korean;
                 NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsEnglishLanguage));
+                NotifyOfPropertyChange(nameof(IsJapaneseLanguage));
+                NotifyOfPropertyChange(nameof(IsChineseLanguage));
+            }
+        }
+        public bool IsEnglishLanguage
+        {
+            get => _message.GameLanguage == GameLanguage.English;
+            set
+            {
+                if (value) _message.GameLanguage = GameLanguage.English;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsKoreanLanguage));
+                NotifyOfPropertyChange(nameof(IsJapaneseLanguage));
+                NotifyOfPropertyChange(nameof(IsChineseLanguage));
+            }
+        }
+        public bool IsJapaneseLanguage
+        {
+            get => _message.GameLanguage == GameLanguage.Japanese;
+            set
+            {
+                if (value) _message.GameLanguage = GameLanguage.Japanese;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsKoreanLanguage));
+                NotifyOfPropertyChange(nameof(IsEnglishLanguage));
+                NotifyOfPropertyChange(nameof(IsChineseLanguage));
+            }
+        }
+        public bool IsChineseLanguage
+        {
+            get => _message.GameLanguage == GameLanguage.Chinese;
+            set
+            {
+                if (value) _message.GameLanguage = GameLanguage.Chinese;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(IsKoreanLanguage));
+                NotifyOfPropertyChange(nameof(IsEnglishLanguage));
+                NotifyOfPropertyChange(nameof(IsJapaneseLanguage));
             }
         }
         public BindableCollection<ListUpdater> CategoryUpdaters { get; }

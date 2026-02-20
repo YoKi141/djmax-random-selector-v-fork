@@ -13,7 +13,6 @@ namespace DjmaxRandomSelectorV.ViewModels
         public string CurrentVersion { get; }
         public string LastestVersion { get; }
         public string AllTrackVersion { get; }
-        public string AppdataVersion { get; }
 
         public InfoViewModel()
         {
@@ -23,7 +22,6 @@ namespace DjmaxRandomSelectorV.ViewModels
             AllTrackVersion = "All Track Last Updated : " + DateTime.ParseExact(container.AllTrackVersion.ToString(),
                                                                                 "yyMMddHHmm",
                                                                                 CultureInfo.InvariantCulture);
-            AppdataVersion = "Appdata Version : " + container.AppdataVersion;
         }
 
         public void OpenGithubPage()

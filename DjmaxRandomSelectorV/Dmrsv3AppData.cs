@@ -12,9 +12,13 @@ namespace DjmaxRandomSelectorV
         public LinkDiscItem[] LinkDisc { get; set; }
         /// <summary>
         /// Maps track ID → English title for tracks whose original title is
-        /// Korean. Used by Locator when GameLanguage is not Korean so that
-        /// navigation uses the same title the game displays.
+        /// Korean. Used by Locator when GameLanguage is English.
         /// </summary>
         public Dictionary<int, string> EnglishTitles { get; set; } = new();
+        /// <summary>
+        /// Maps track ID → Japanese title for tracks whose original title is
+        /// Korean. Used by Locator when GameLanguage is Japanese.
+        /// </summary>
+        public Dictionary<int, string> JapaneseTitles { get; set; } = new();
     }
 }

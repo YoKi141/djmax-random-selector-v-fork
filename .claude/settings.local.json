@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/c/msys32/usr/bin/python3:*)",
+      "Bash(/c/msys32/mingw32/bin/python:*)",
+      "Bash(\"C:/program1/Anaconda3/python.exe\" scripts/generate_appdata.py --dry-run)",
+      "Bash(\"C:/program1/Anaconda3/python.exe\":*)",
+      "Bash(\"C:/program1/Anaconda3/python.exe\" -c:*)",
+      "Bash(\"C:/program1/Anaconda3/python.exe\" scripts/inspect_tracks.py)",
+      "Bash(dotnet build:*)"
+    ]
+  }
+}

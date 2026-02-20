@@ -41,10 +41,15 @@ namespace Dmrsv.RandomSelector
 
         public void MakeLocations(IEnumerable<Track> trackList)
         {
-            // In non-Korean mode use the English title when available so that
+            // In non-Korean mode use the language-specific title when available so that
             // grouping and sorting match what the game actually displays.
-            var getEffectiveTitle = (Track t) =>
-                GameLanguage == GameLanguage.Korean ? t.Title : (t.TitleEn ?? t.Title);
+            var getEffectiveTitle = (Track t) => GameLanguage switch
+            {
+                GameLanguage.English or
+                GameLanguage.Chinese  => t.TitleEn ?? t.Title,
+                GameLanguage.Japanese => t.TitleJa ?? t.TitleEn ?? t.Title,
+                _                     => t.Title,
+            };
 
             var getGroup = (Track t) =>
             {

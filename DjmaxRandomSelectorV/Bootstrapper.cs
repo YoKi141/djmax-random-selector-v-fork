@@ -80,11 +80,6 @@ namespace DjmaxRandomSelectorV
             {
                 _ = Task.Run(() => MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error));
             }
-            if (_versionContainer.AppdataVersion.CompareTo(_config.AppdataVersion) > 0)
-            {
-                _ = Task.Run(() => MessageBox.Show($"App data has been updated to the version {_versionContainer.AppdataVersion}.",
-                             "Update", MessageBoxButton.OK, MessageBoxImage.Information));
-            }
             // Import appdata
             Dmrsv3AppData appdata;
             try
@@ -104,6 +99,7 @@ namespace DjmaxRandomSelectorV
             _db.Initialize(appdata);
             _db.ImportDB();
             _db.MergeEnglishTitles(appdata.EnglishTitles);
+            _db.MergeJapaneseTitles(appdata.JapaneseTitles);
             _db.SetPlayable(_config.OwnedDlcs);
             // Bind views and viewmodels
             await DisplayRootViewForAsync(typeof(ShellViewModel));
@@ -130,7 +126,6 @@ namespace DjmaxRandomSelectorV
                 _config.RecentPlayed = historyItems;
             }
             _config.AllTrackVersion = _versionContainer.AllTrackVersion;
-            _config.AppdataVersion = _versionContainer.AppdataVersion;
             _fileManager.Export(_config, ConfigFilePath);
         }
 

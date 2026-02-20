@@ -99,8 +99,35 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="GAME LANGUAGE (ENGLISH)"/>
-                        <ToggleButton x:Name="IsEnglishLanguage"/>
+                        <TextBlock Text="GAME LANGUAGE"/>
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <StackPanel.Resources>
+                                <Style TargetType="RadioButton">
+                                    <Setter Property="Foreground" Value="{StaticResource DefaultGrayColor}"/>
+                                    <Setter Property="FontFamily" Value="{StaticResource LatoFont}"/>
+                                    <Setter Property="FontSize" Value="13"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Margin" Value="0 0 10 0"/>
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <RadioButton Content="KOR"
+                                         IsChecked="{Binding IsKoreanLanguage, Mode=TwoWay}"
+                                         GroupName="GameLanguage"/>
+                            <RadioButton Content="ENG"
+                                         IsChecked="{Binding IsEnglishLanguage, Mode=TwoWay}"
+                                         GroupName="GameLanguage"/>
+                            <RadioButton Content="JPN"
+                                         IsChecked="{Binding IsJapaneseLanguage, Mode=TwoWay}"
+                                         GroupName="GameLanguage"/>
+                            <RadioButton Content="CHN"
+                                         IsChecked="{Binding IsChineseLanguage, Mode=TwoWay}"
+                                         GroupName="GameLanguage"
+                                         Margin="0"/>
+                        </StackPanel>
                     </Grid>
 
                     <Grid Style="{x:Null}" Margin="0 10 0 0">
