@@ -10,7 +10,7 @@ DJMAX RESPECT V 随机曲目选择器。设定筛选条件后，按下快捷键�
 
 ### 安装
 
-1. 在 [Releases](https://github.com/wowvv0w/djmax-random-selector-v/releases) 页面下载最新版本。
+1. 在 [Releases](https://github.com/YoKi141/djmax-random-selector-v-fork/releases) 页面下载最新版本。
 2. 解压文件。
 3. 运行 `DJMAX Random Selector V.exe`。
 
@@ -39,7 +39,7 @@ DJMAX RESPECT V 用のランダム選曲ツールです。フィルターを設�
 
 ### インストール
 
-1. [Releases](https://github.com/wowvv0w/djmax-random-selector-v/releases) ページから最新版をダウンロードします。
+1. [Releases](https://github.com/YoKi141/djmax-random-selector-v-fork/releases) ページから最新版をダウンロードします。
 2. ファイルを解凍します。
 3. `DJMAX Random Selector V.exe` を実行します。
 
@@ -68,7 +68,7 @@ DJMAX RESPECT V용 랜덤 선곡 도구입니다. 필터를 설정하고 단축�
 
 ### 설치
 
-1. [Releases](https://github.com/wowvv0w/djmax-random-selector-v/releases) 페이지에서 최신 버전을 다운로드합니다.
+1. [Releases](https://github.com/YoKi141/djmax-random-selector-v-fork/releases) 페이지에서 최신 버전을 다운로드합니다.
 2. 파일을 압축 해제합니다.
 3. `DJMAX Random Selector V.exe`를 실행합니다.
 
@@ -97,7 +97,7 @@ A random music selector for DJMAX RESPECT V. Set your filter criteria, press the
 
 ### Installation
 
-1. Download the latest release from the [Releases](https://github.com/wowvv0w/djmax-random-selector-v/releases) page.
+1. Download the latest release from the [Releases](https://github.com/YoKi141/djmax-random-selector-v-fork/releases) page.
 2. Extract the files.
 3. Run `DJMAX Random Selector V.exe`.
 
