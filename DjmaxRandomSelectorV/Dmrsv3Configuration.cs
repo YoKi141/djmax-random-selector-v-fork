@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Dmrsv.RandomSelector;
 
 namespace DjmaxRandomSelectorV
@@ -8,7 +9,20 @@ namespace DjmaxRandomSelectorV
     {
         /*************** Setting *****************/
         public FilterType FilterType { get; set; } = FilterType.Query;
-        public GameLanguage GameLanguage { get; set; } = GameLanguage.Korean;
+        public GameLanguage GameLanguage { get; set; } = GetDefaultGameLanguage();
+
+        private static GameLanguage GetDefaultGameLanguage()
+        {
+            string Lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            return Lang switch
+            {
+                "ko" => GameLanguage.Korean,
+                "zh" => GameLanguage.Chinese,
+                "ja" => GameLanguage.Japanese,
+                "en" => GameLanguage.English,
+                _    => GameLanguage.Korean
+            };
+        }
         public int InputDelay { get; set; } = 30;
         public List<int> Favorite { get; set; } = new();
         public List<int> Blacklist { get; set; } = new();
