@@ -96,13 +96,20 @@ namespace DjmaxRandomSelectorV.ViewModels
             var favorite = config.Favorite;
             var blacklist = config.Blacklist;
             _db = IoC.Get<TrackDB>();
+            var lang = config.GameLanguage;
+            string getEffectiveTitle(Track t) => lang switch
+            {
+                GameLanguage.English or GameLanguage.Chinese => t.TitleEn ?? t.Title,
+                GameLanguage.Japanese => t.TitleJa ?? t.TitleEn ?? t.Title,
+                _ => t.Title
+            };
             _items = _db.AllTrack.Select(track => new FavoriteItem()
             {
-                Info = track.Info,
+                Info = track.Info with { Title = getEffectiveTitle(track) },
                 Category = track.Category.Split(':')[0],
                 IsPlayable = track.IsPlayable, // TODO: apply the track is playable (required to respond to change setting)
                 Status = favorite.Contains(track.Id) ? 1 : (blacklist.Contains(track.Id) ? -1 : 0)
-            }).OrderBy(item => item.Title, new TitleComparer())
+            }).OrderBy(item => item.Title, new TitleComparer(lang))
               .ThenByDescending(t => t.Id == 170 || t.Id == 267 ? t.Id : 0)
               .ToList();
             _searchedItems = new List<FavoriteItem>();

@@ -13,6 +13,7 @@ namespace DjmaxRandomSelectorV.ViewModels
     public class HistoryViewModel : Screen, IHandle<PatternMessage>, IHandle<FilterOptionMessage>
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly TrackDB _db;
 
         private int _number;
         private bool _showsStyle;
@@ -23,6 +24,7 @@ namespace DjmaxRandomSelectorV.ViewModels
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.SubscribeOnUIThread(this);
+            _db = IoC.Get<TrackDB>();
             _number = 0;
             History = new BindableCollection<HistoryItem>();
             DisplayName = "HISTORY";
@@ -32,10 +34,18 @@ namespace DjmaxRandomSelectorV.ViewModels
         private void AddItem(Pattern pattern)
         {
             _number++;
+            var lang = IoC.Get<Dmrsv3Configuration>().GameLanguage;
+            var track = _db.AllTrack.FirstOrDefault(t => t.Id == pattern.Info.Id);
+            string displayTitle = track == null ? pattern.Info.Title : lang switch
+            {
+                GameLanguage.English or GameLanguage.Chinese => track.TitleEn ?? track.Title,
+                GameLanguage.Japanese => track.TitleJa ?? track.TitleEn ?? track.Title,
+                _ => track.Title
+            };
             var historyItem = new HistoryItem()
             {
                 Number = _number,
-                Info = pattern.Info,
+                Info = pattern.Info with { Title = displayTitle },
                 Category = pattern.Info.Category.Split(':')[0],
                 Style = _showsStyle ? pattern.Style : "FREE",
                 Level = _showsStyle ? pattern.Level.ToString() : "-",
