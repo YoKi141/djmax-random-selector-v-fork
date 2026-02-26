@@ -1,0 +1,202 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>DJMAX Random Selector V</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\Lato-Black.ttf" />
+    <Resource Include="Fonts\Lato-Bold.ttf" />
+    <Resource Include="Fonts\Lato-Light.ttf" />
+    <Resource Include="Fonts\Lato-Regular.ttf" />
+    <Resource Include="Fonts\Lato-Thin.ttf" />
+    <None Update="Data\AllTrackList.csv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Config.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\CurrentPlaylist.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\CurrentFilter.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Playlist\Boss Songs.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Playlist\Popular Songs.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Default.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Bronze II~I.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Bronze IV~III.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Diamond I.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Diamond IV~II.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Gold I.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Gold III~II.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Gold IV.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Grand Master.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Iron I.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Iron II.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Iron III.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Iron IV.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Master.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Platinum I.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Platinum II.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Platinum III.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Platinum IV.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Silver I.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Preset\Ladder Match Season 8\Silver IV~II.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="DMRSV3_Data\AllTrackList.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DMRSV3_Data\appdata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DMRSV3_Data\Config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DMRSV3_Data\CurrentFilter.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DMRSV3_Data\CurrentPlaylist.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="Fonts\BebasNeue-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\inventory.png" />
+    <Resource Include="Images\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\4B_OFF.png" />
+    <Resource Include="Images\4B_ON.png" />
+    <Resource Include="Images\5B_OFF.png" />
+    <Resource Include="Images\5B_ON.png" />
+    <Resource Include="Images\6B_OFF.png" />
+    <Resource Include="Images\6B_ON.png" />
+    <Resource Include="Images\8B_OFF.png" />
+    <Resource Include="Images\8B_ON.png" />
+    <Resource Include="Images\Close.png" />
+    <Resource Include="Images\d_blk.png" />
+    <Resource Include="Images\d_org.png" />
+    <Resource Include="Images\d_red.png" />
+    <Resource Include="Images\d_ylw.png" />
+    <Resource Include="Images\Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btn_left.png" />
+    <Resource Include="Images\btn_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\aider_auto.png" />
+    <Resource Include="Images\aider_observe.png" />
+    <Resource Include="Images\except.png" />
+    <Resource Include="Images\level_beginner.png" />
+    <Resource Include="Images\level_master.png" />
+    <Resource Include="Images\level_standard.png" />
+    <Resource Include="Images\mode_fs.png" />
+    <Resource Include="Images\mode_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\addon_none.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\aider_auto_locked.png" />
+    <Resource Include="Images\level_beginner_locked.png" />
+    <Resource Include="Images\level_master_locked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\d_scb.png" />
+    <Resource Include="Images\d_scp.png" />
+    <Resource Include="Images\d_scr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\d_sck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
+    <PackageReference Include="CsvHelper" Version="30.0.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.355802">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dmrsv.RandomSelector\Dmrsv.RandomSelector.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties data_4config_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+</Project>
