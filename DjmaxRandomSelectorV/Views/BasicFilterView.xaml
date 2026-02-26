@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="DjmaxRandomSelectorV.Views.BasicFilterView"
+<UserControl x:Class="DjmaxRandomSelectorV.Views.BasicFilterView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -713,6 +713,9 @@
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Name}" Value="TRIBUTE #1">
                                     <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTribute1}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TRIBUTE #2">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTribute2}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Name}" Value="64514 Part.1">
                                     <Setter TargetName="Button" Property="Background" Value="{StaticResource Bg645141}"/>
