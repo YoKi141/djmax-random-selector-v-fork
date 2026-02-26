@@ -252,6 +252,12 @@
             "id": "PLI2",
             "steamId": null,
             "type": 3
+        },
+        {
+            "name": "TRIBUTE #2",
+            "id": "PLI3",
+            "steamId": null,
+            "type": 3
         }
     ],
     "pliCategories": [
@@ -279,6 +285,17 @@
                             723,
                             732
                         ]
+                    ]
+                }
+            ]
+        },
+        {
+            "major": "PLI3",
+            "minors": [
+                {
+                    "name": "TRIBUTE #2",
+                    "items": [
+                        []
                     ]
                 }
             ]
