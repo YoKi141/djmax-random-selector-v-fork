@@ -714,11 +714,11 @@
                                 <DataTrigger Binding="{Binding Name}" Value="TRIBUTE #1">
                                     <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTribute1}"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Name}" Value="TRIBUTE #2">
-                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTribute2}"/>
-                                </DataTrigger>
                                 <DataTrigger Binding="{Binding Name}" Value="64514 Part.1">
                                     <Setter TargetName="Button" Property="Background" Value="{StaticResource Bg645141}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Name}" Value="TRIBUTE #2">
+                                    <Setter TargetName="Button" Property="Background" Value="{StaticResource BgTribute2}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
