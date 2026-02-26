@@ -1,4 +1,0 @@
-﻿3.2.0
-250911
-titleTest
-descriptionTest
